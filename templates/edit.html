@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit-style.css') }}">
+    <title>Edit Todo Item</title>
+</head>
+<body>
+    
+    <form action="{{ url_for('edit', id=todo.id) }}" method="post" placeholder="Edit ToDo" autocomplete="off" autofocus>
+        <h1>Edit Todo Item</h1>
+        <input type="text" name="todo" value="{{ todo.text }}">
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

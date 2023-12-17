@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <title>Todo App</title>
+</head>
+<body>
+    <div class="wrapper">
+        <h1 style="text-align: center; margin-right: 5px;">Todo List</h1>
+        <div class="task-input">
+            <form action="{{ url_for('add') }}" method="POST">
+                <br>
+                <input type="text" name="todoitem" placeholder="Add todo" autocomplete="off" autofocus>
+                <input type="submit" value="Add Item">
+            </form>
+        </div>
+        <div class="task-box" id="scrollable-box">
+            <h2>Incomplete Items</h2>
+            <ul class="task-list">
+                {% for todo in incomplete %}
+                <li>
+                    <p class="{% if todo.complete %}checked{% endif %}">{{ todo.text }}</p>
+                    <div class="settings">
+                        <i class="fas fa-ellipsis-h"></i>
+                        <ul class="task-menu">
+                            <li>
+                                <a href="{{ url_for('complete', id=todo.id) }}">Complete</a>
+                                <a href="{{ url_for('edit', id=todo.id) }}">Edit</a>
+                                <a href="{{ url_for('delete', id=todo.id) }}">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {% endfor %}    
+            </ul>
+            
+            <h2>Completed Items</h2>
+            <ul class="task-list">
+                {% for todo in complete %}
+                <li>
+                    <p class="checked">{{ todo.text }}</p>
+                    <div class="settings">
+                        <i class="fas fa-ellipsis-h"></i>
+                        <ul class="task-menu">
+                            <li><a href="{{ url_for('delete', id=todo.id) }}">Delete</a></li>
+                        </ul>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
